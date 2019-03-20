@@ -23,12 +23,14 @@ class Population(Base):
     def __init_property(self):
         self.init_time_and_province_and_city_and_keyword(self.rules_list.keyword_rules)
 
+        # 男女
         if self.keyword == ':gender':
             self.blank1 = 'malePopulation'
             self.blank2 = 'femalePopulation'
             self.word1 = 'maleSUM'
             self.word2 = 'femaleSUM'
 
+        # 城镇|农村人口
         if self.keyword == ':type':
             self.blank1 = 'urbanPopulation'
             self.blank2 = 'ruralPopulation'
@@ -54,7 +56,7 @@ class Population(Base):
         # 不是性别或分别问题
         else:
             # Q2：1986年上海的人口数是多少?
-            if self.province is not None and self.city is None:
+            if self.province is not None and self.city is None and self.time is not None:
                 return self.__time_and_province()
 
             # Q1：1986年上海浦东有多少人？
@@ -64,6 +66,10 @@ class Population(Base):
             # Q3：1986年全国有多少人？
             if self.province is None and self.city is None and self.time is not None:
                 return self.__time()
+
+            # 北京的人口数是多少?
+            if self.province is not None and self.city is None and self.time is None:
+                return self.__province()
 
     # 性别或分别问题 Q?：1986年上海男女分别有多少？
     def __keyword_time_and_province(self):
@@ -155,6 +161,17 @@ class Population(Base):
         e = u"?x ex:population ?y;\n" \
             "   ex:year {time}." \
             .format(time=self.time.decode('utf-8'))
+
+        return SPARQL_SUM_A \
+            .format(prefix=SPARQL_PREXIX,
+                    select=self.select,
+                    expression=e)
+
+    # 北京的人口数是多少?
+    def __province(self):
+        e = u"?x ex:provName '{province}';\n" \
+            u"   ex:population ?y." \
+            .format(province=self.province.decode('utf-8'))
 
         return SPARQL_SUM_A \
             .format(prefix=SPARQL_PREXIX,

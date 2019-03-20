@@ -7,13 +7,15 @@ from KB_query.questions_model.sets import QuestionSet, PropertyValueSet, RulesLi
 rules = [
     # 人口数
     Rule(condition_num=4,
-         condition=time_entity + Star(Any(), greedy=False) +
+         condition=time_entity +
+                   Star(Any(), greedy=False) +
                    (place_entity | national) +
                    (place_entity | Star(Any(), greedy=False)) +
                    Star(Any(), greedy=False) +
                    (country | gender | Star(Any(), greedy=False)) +
                    Star(Any(), greedy=False) +
-                   (people | different) + Star(Any(), greedy=False),
+                   (people | different) +
+                   Star(Any(), greedy=False),
          action=QuestionSet.has_population),
 
     # 人口数
@@ -53,6 +55,16 @@ rules = [
                    proportion +
                    Star(Any(), greedy=False),
          action=QuestionSet.has_proportion),
+
+    # 人口数
+    Rule(condition_num=4,
+         condition=place_entity +
+                   Star(Any(), greedy=False) +
+                   (country | gender | Star(Any(), greedy=False)) +
+                   Star(Any(), greedy=False) +
+                   (people | different) +
+                   Star(Any(), greedy=False),
+         action=QuestionSet.has_population),
 
     # 个数
     Rule(condition_num=4,
