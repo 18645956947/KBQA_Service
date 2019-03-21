@@ -24,7 +24,7 @@ prefer = (W("比"))
 gender = (male | female | mf)
 country = (W("城镇") | W("城镇人口") | W("城乡") | W("城乡人口"))
 
-people = (W("人") | W("人口") | W("人数") | W("人口数"))
+people = (W("人") | W("人口") | W("人数") | W("人口数")| W("总人口数")| W("总人口")| W("总人数"))
 several = (W("多少") | W("是多少") | W("有多少"))
 verb = (W("有") | W("是") | W("为"))
 population = (people | several | verb)

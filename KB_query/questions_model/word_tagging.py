@@ -32,7 +32,7 @@ class Tagger:
         jieba.suggest_freq(('上海', '市'), True)
         jieba.suggest_freq(('北京', '市'), True)
         jieba.suggest_freq(('杭州', '市'), True)
-        jieba.suggest_freq(('年', '间'), True)
+        jieba.suggest_freq(('人口', '数量'), True)
 
     @staticmethod
     def get_word_objects(sentence):

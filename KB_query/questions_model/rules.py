@@ -5,7 +5,7 @@ from KB_query.questions_model.sets import QuestionSet, PropertyValueSet, RulesLi
 
 # 问题模板/匹配规则
 p_rules = [
-    # 人口数
+    # 人口数 时间* +（地点|全国|我国）+地点|* + * + 城镇|性别|* + * + 人数、人口数 + *
     Rule(condition_num=4,
          condition=time_entity +
                    Star(Any(), greedy=False) +
@@ -65,6 +65,69 @@ p_rules = [
                    (people | different) +
                    Star(Any(), greedy=False),
          action=QuestionSet.has_population),
+
+    #云南省人口有多少
+    Rule(condition_num=4,
+        condition= (city|time_entity) +
+                   Star(Any(), greedy=False) +
+                   people +
+                   (several|Star(Any(), greedy=False)),
+         action=QuestionSet.has_population),
+
+
+
+
+
+# 人口省份更多
+    Rule(condition_num=4,
+         condition=(time_entity | Star(Any(), greedy=False)) +
+                   (place_entity | national | Star(Any(), greedy=False)) +
+                   Star(Any(), greedy=False) +
+                   prefer +
+                   Star(Any(), greedy=False) +
+                   compare +
+                   Star(Any(), greedy=False) +
+                   (city | province) +
+                   Star(Any(), greedy=False),
+         action=QuestionSet.has_more_population),
+
+    # 最高人口比例
+    Rule(condition_num=4,
+         condition=(time_entity | Star(Any(), greedy=False)) +
+                   (place_entity | national | Star(Any(), greedy=False)) +
+                   Star(Any(), greedy=False) +
+                   gender +
+                   Star(Any(), greedy=False) +
+                   proportion +
+                   Star(Any(), greedy=False) +
+                   top,
+         action=QuestionSet.has_most_proportion),
+
+    # 最高人口比例
+    Rule(condition_num=4,
+         condition=(place_entity | national | Star(Any(), greedy=False)) +
+                   (time_entity | Star(Any(), greedy=False)) +
+                   Star(Any(), greedy=False) +
+                   prefer +
+                   Star(Any(), greedy=False) +
+                   compare +
+                   Star(Any(), greedy=False) +
+                   (city | province) +
+                   Star(Any(), greedy=False),
+         action=QuestionSet.has_more_population),
+
+    # 最高人口比例
+    Rule(condition_num=4,
+         condition=(place_entity | national | Star(Any(), greedy=False)) +
+                   (time_entity | Star(Any(), greedy=False)) +
+                   Star(Any(), greedy=False) +
+                   gender +
+                   Star(Any(), greedy=False) +
+                   proportion +
+                   Star(Any(), greedy=False) +
+                   top,
+         action=QuestionSet.has_most_proportion)
+
 ]
 rules = [
     # 个数
