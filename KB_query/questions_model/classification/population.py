@@ -60,7 +60,7 @@ class Population(Base):
                 return self.__time_and_province()
 
             # Q1：1986年上海浦东有多少人？
-            if self.province is not None and self.city is not None:
+            if self.province is not None and self.city is not None and self.time is not None:
                 return self.__time_and_province_and_city()
 
             # Q3：1986年全国有多少人？
