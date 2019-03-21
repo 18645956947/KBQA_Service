@@ -4,7 +4,7 @@ from KB_query.questions_model.keywords import *
 from KB_query.questions_model.sets import QuestionSet, PropertyValueSet, RulesList
 
 # 问题模板/匹配规则
-rules = [
+p_rules = [
     # 人口数
     Rule(condition_num=4,
          condition=time_entity +
@@ -65,7 +65,8 @@ rules = [
                    (people | different) +
                    Star(Any(), greedy=False),
          action=QuestionSet.has_population),
-
+]
+rules = [
     # 个数
     Rule(condition_num=4,
          condition=(time_entity | place_entity | national | Star(Any(), greedy=False)) +
@@ -73,7 +74,7 @@ rules = [
                    Star(Any(), greedy=False) +
                    (count | data) + (city | province | Star(Any(), greedy=False)),
          action=QuestionSet.has_count),
-
+    
     # 个数
     Rule(condition_num=4,
          condition=(place_entity | national | Star(Any(), greedy=False)) +
