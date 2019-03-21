@@ -1,5 +1,5 @@
-import json
 from flask import Flask, request, jsonify, render_template
+
 from KB_query.generate_sparql import generate_sparql
 
 app = Flask(__name__)
