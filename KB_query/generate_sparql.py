@@ -16,5 +16,5 @@ q2s = question2sparql.Question2Sparql([
     '../KB_query/external_dict/person_name.txt',
     '../KB_query/external_dict/movie_title.txt'])
 
-s = q2s.get_sparql("1984年上海的男女分别有多少")
+s = q2s.get_sparql("1984年上海的农村人口和城镇人口")
 print(s)

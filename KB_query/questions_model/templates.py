@@ -119,6 +119,7 @@ SPARQL_SUM_O = u"{prefix}\n" + \
                u"}}\n" + \
                u"}}\n" + \
                u"}}\n"
+
 # 模板J2
 SPARQL_SUM_J2 = u"{prefix}\n" + \
                 u"SELECT {select} {select2} WHERE {{\n" + \
